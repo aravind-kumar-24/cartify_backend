@@ -8,10 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('cartify_user_roles', function (Blueprint $table) {
+        Schema::create('business_types', function(Blueprint $table){
             $table->id();
-            $table->enum('role_name', ['buyer', 'seller', 'admin']);
-            $table->foreignId('cartify_user_id')->constrained('cartify_users');
+            $table->string('business_type_name')->unique();
             $table->timestampsTz();
             $table->softDeletesTz();
         });
@@ -19,6 +18,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('cartify_user_roles');
+        Schema::dropIfExists('business_types');
     }
 };
