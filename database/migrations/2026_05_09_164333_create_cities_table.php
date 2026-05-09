@@ -8,17 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('cartify_user_roles', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->enum('role_name', ['buyer', 'seller', 'admin']);
-            $table->foreignId('cartify_user_id')->constrained('cartify_users');
+            $table->string('city_name');
+            $table->foreignId('state_id')->constrained('states');
             $table->timestampsTz();
             $table->softDeletesTz();
         });
     }
-
+    
     public function down(): void
     {
-        Schema::dropIfExists('cartify_user_roles');
+        Schema::dropIfExists('cities');
     }
 };

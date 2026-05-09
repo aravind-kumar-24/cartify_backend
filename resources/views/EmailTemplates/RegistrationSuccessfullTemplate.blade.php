@@ -36,7 +36,7 @@
                     inset 0 0 0 1px #3275a8;
             }
 
-            .buyer-name {
+            .user-name {
                 text-align: center;
                 color: #3275a8;
                 font-size: 32px;
@@ -57,11 +57,11 @@
                 font-weight: 700;
             }
 
-            .buyer-email-verify {
+            .user-email-verify {
                 text-align: center;
             }
 
-            .buyer-email-verify p {
+            .user-email-verify p {
                 color: #4A4A4A;
                 font-size: 18px;
                 line-height: 1.6;
@@ -85,13 +85,13 @@
     <body>
         <div class="registration-completed-email-container">
             <div class="registration-completed-mail">
-                <div class="buyer-name">
+                <div class="user-name">
                     Hello {{$user_name}}!
                 </div>
                 <p class="welcome-message">
-                    Buyer Registration completed successfully. Welcome to <span>Cartify</span>.
+                    {{ $role == 'buyer' ? 'Buyer' : 'Seller' }} Registration completed successfully. Welcome to <span>Cartify</span>.
                 </p>
-                <div class="buyer-email-verify">
+                <div class="user-email-verify">
                     <p>
                         To complete your registration, please verify your email by clicking the button below:
                     </p>

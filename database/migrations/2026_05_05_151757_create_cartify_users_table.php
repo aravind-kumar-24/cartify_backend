@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('profile_picture_path')->nullable();
             $table->enum('status', ['active', 'inactive', 'deleted'])->default('inactive');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('mobile_verified_at')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestampTz('email_verified_at')->nullable();
+            $table->timestampTz('mobile_verified_at')->nullable();
+            $table->timestampsTz();
+            $table->softDeletesTz();
         });
     }
 

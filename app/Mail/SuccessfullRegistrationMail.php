@@ -13,13 +13,15 @@ class SuccessfullRegistrationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user_name;
-    public $url;
+    public string $user_name;
+    public string $url;
+    public string $role;
 
-    public function __construct($name, $url)
+    public function __construct(string $name, string $url, string $role)
     {
         $this->user_name = $name;
         $this->url = $url;
+        $this->role = $role;
     }
 
     public function envelope(): Envelope
