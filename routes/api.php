@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssetsController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,6 +9,10 @@ Route::prefix('/register')->group(function(){
     Route::post('/buyer_register', [RegistrationController::class, 'buyer_registration']);
     Route::get('/email_verification/{cartify_user_id}', [RegistrationController::class, 'email_verification']);
     Route::post('/seller_register', [RegistrationController::class, 'seller_registration']);
+});
+
+Route::prefix('/auth')->group(function(){
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::prefix('/assets')->group(function(){
