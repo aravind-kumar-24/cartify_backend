@@ -63,6 +63,7 @@ class AuthController extends Controller
                 'message' => 'Login successful',
                 'access_token' => $token,
                 'token_type' => 'bearer',
+                'role' => $credentials['user_type']
             ], 200);
 
         }catch(\Throwable $e){
