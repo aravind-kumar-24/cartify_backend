@@ -29,4 +29,8 @@ class CartifyUsers extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function CartifyUserRoles(){
+        return $this->hasMany(CartifyUserRoles::class, 'cartify_user_id');
+    }
 }

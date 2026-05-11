@@ -9,6 +9,7 @@ Route::prefix('/register')->group(function(){
     Route::post('/buyer_register', [RegistrationController::class, 'buyer_registration']);
     Route::get('/email_verification/{cartify_user_id}', [RegistrationController::class, 'email_verification']);
     Route::post('/seller_register', [RegistrationController::class, 'seller_registration']);
+    Route::get('/count/{page}', [RegistrationController::class, 'get_count']);
 });
 
 Route::prefix('/auth')->group(function(){

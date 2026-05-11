@@ -236,4 +236,33 @@ class RegistrationController extends Controller
             ]);
         }
     }
+
+    public function get_count(string $page){
+        try{
+
+            $users = CartifyUsers::whereNull('deleted_at')
+                ->whereNotNull('email_verified_at')
+                ->whereNotNull('mobile_verified_at')
+                ->where('status', 'active');
+            
+            if($page != 'all'){
+                $users->whereHas('CartifyUserRoles', function($query) use ($page){
+                    $query->where('role_name', strtolower($page));
+                });
+            }
+
+            $count = $users->count();
+
+            return Response::json([
+                'message' => 'Count fetched successfully!',
+                'count' => $count
+            ],200);
+
+        }catch(\Throwable $e){
+            return Response::json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
