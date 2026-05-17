@@ -14,6 +14,10 @@ Route::prefix('/register')->group(function(){
 
 Route::prefix('/auth')->group(function(){
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::middleware('auth:api')->group(function(){
+        Route::get('/get_auth_user', [AuthController::class, 'get_auth_user']);
+    });
 });
 
 Route::prefix('/assets')->group(function(){
