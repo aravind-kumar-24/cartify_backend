@@ -13,12 +13,9 @@ class CartifyUsers extends Authenticatable implements JWTSubject
     
     protected $table = "cartify_users";
 
-    protected $guarded = [];
+    protected $with = ['Role', 'SellerProfile'];
 
-    public function getAuthIdentifierName()
-    {
-        return 'email_id';
-    }
+    protected $guarded = [];
 
     public function getJWTIdentifier()
     {
@@ -30,7 +27,11 @@ class CartifyUsers extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function CartifyUserRoles(){
+    public function Role(){
         return $this->hasMany(CartifyUserRoles::class, 'cartify_user_id');
+    }
+
+    public function SellerProfile(){
+        return $this->hasOne(CartifySellerProfiles::class, 'cartify_user_id');
     }
 }

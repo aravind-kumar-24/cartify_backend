@@ -13,4 +13,8 @@ class CartifySellerProfiles extends Model
     protected $table = 'cartify_seller_profiles';
 
     protected $guarded = [];
+
+    public function User(){
+        return $this->belongsTo(CartifyUsers::class, 'cartify_user_id');
+    }
 }

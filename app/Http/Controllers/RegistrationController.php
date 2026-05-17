@@ -24,7 +24,7 @@ class RegistrationController extends Controller
 
             $buyer_data = $request->validated();
 
-            $buyer_existing_check = CartifyUsers::where('email_id', $buyer_data['email_id'])
+            $buyer_existing_check = CartifyUsers::where('email', $buyer_data['email_id'])
                 ->orWhere('mobile_number', $buyer_data['mobile_number'])->first();
 
             if($buyer_existing_check){
@@ -33,7 +33,7 @@ class RegistrationController extends Controller
                     ->first();
 
                 if($role_check){
-                    if($buyer_existing_check->email_id === $buyer_data['email_id']) {
+                    if($buyer_existing_check->email === $buyer_data['email_id']) {
                         return Response::json([
                             'message'=> 'Buyer with this Email ID already exists!',
                         ], 409);
@@ -44,7 +44,7 @@ class RegistrationController extends Controller
                     }
                 }
 
-                if ($buyer_existing_check->email_id === $buyer_data['email_id']) {
+                if ($buyer_existing_check->email === $buyer_data['email_id']) {
 
                     return Response::json([
                         'message' => 'Seller with this Email ID already exists! Sign in to add a Buyer role',
@@ -65,7 +65,7 @@ class RegistrationController extends Controller
             $create_new_buyer->cartify_user_id = $user_id;
             $create_new_buyer->first_name = $buyer_data['first_name'];
             $create_new_buyer->last_name = $buyer_data['last_name'];
-            $create_new_buyer->email_id = $buyer_data['email_id'];
+            $create_new_buyer->email = $buyer_data['email_id'];
             $create_new_buyer->mobile_number = $buyer_data['mobile_number'];
             $create_new_buyer->password = Hash::make($buyer_data['password']);
             $create_new_buyer->save();
@@ -78,14 +78,14 @@ class RegistrationController extends Controller
             DB::commit();
 
             // For Testing
-            $create_new_buyer->email_id = 'aravindreigns797920@gmail.com';
+            $create_new_buyer->email = 'aravindreigns797920@gmail.com';
             $role = 'buyer';
             $buyer_name = $create_new_buyer->first_name . ' ' . $create_new_buyer->last_name;
             $encrypted_buyer_id = Crypt::encryptString($create_new_buyer->cartify_user_id);
             $verification_url = url('api/register/email_verification/'.$encrypted_buyer_id);
 
             try{
-                Mail::to($create_new_buyer->email_id)->send(new SuccessfullRegistrationMail($buyer_name, $verification_url, $role));
+                Mail::to($create_new_buyer->email)->send(new SuccessfullRegistrationMail($buyer_name, $verification_url, $role));
             }catch(Exception $e){
                 return Response::json([
                     'message' => 'Failed to send registration completed mail',
@@ -111,7 +111,7 @@ class RegistrationController extends Controller
 
             $seller_data = $request->validated();
 
-            $seller_existing_check = CartifyUsers::where('email_id', $seller_data['email_id'])
+            $seller_existing_check = CartifyUsers::where('email', $seller_data['email_id'])
                 ->orWhere('mobile_number', $seller_data['mobile_number'])->first();
 
             if($seller_existing_check){
@@ -120,7 +120,7 @@ class RegistrationController extends Controller
                     ->first();
 
                 if($role_check){
-                    if($seller_existing_check->email_id === $seller_data['email_id']) {
+                    if($seller_existing_check->email === $seller_data['email_id']) {
                         return Response::json([
                             'message'=> 'Seller with this Email ID already exists!',
                         ], 409);
@@ -131,7 +131,7 @@ class RegistrationController extends Controller
                     }
                 }
 
-                if ($seller_existing_check->email_id === $seller_data['email_id']) {
+                if ($seller_existing_check->email === $seller_data['email_id']) {
 
                     return Response::json([
                         'message' => 'Buyer with this Email ID already exists! Sign in to add a Seller role',
@@ -152,7 +152,7 @@ class RegistrationController extends Controller
             $create_new_seller->cartify_user_id = $user_id;
             $create_new_seller->first_name = $seller_data['first_name'];
             $create_new_seller->last_name = $seller_data['last_name'];
-            $create_new_seller->email_id = $seller_data['email_id'];
+            $create_new_seller->email = $seller_data['email_id'];
             $create_new_seller->mobile_number = $seller_data['mobile_number'];
             $create_new_seller->password = Hash::make($seller_data['password']);
             $create_new_seller->save();
@@ -175,14 +175,14 @@ class RegistrationController extends Controller
             DB::commit();
 
             // For Testing
-            $create_new_seller->email_id = 'aravindreigns797920@gmail.com';
+            $create_new_seller->email = 'aravindreigns797920@gmail.com';
             $role = 'seller';
             $seller_name = $create_new_seller->first_name . ' ' . $create_new_seller->last_name;
             $encrypted_seller_id = Crypt::encryptString($create_new_seller->cartify_user_id);
             $verification_url = url('api/register/email_verification/'.$encrypted_seller_id);
 
             try{
-                Mail::to($create_new_seller->email_id)->send(new SuccessfullRegistrationMail($seller_name, $verification_url, $role));
+                Mail::to($create_new_seller->email)->send(new SuccessfullRegistrationMail($seller_name, $verification_url, $role));
             }catch(Exception $e){
                 return Response::json([
                     'message' => 'Failed to send registration completed mail',

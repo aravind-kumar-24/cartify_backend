@@ -14,7 +14,7 @@ class CartifyUserRoles extends Model
 
     protected $guarded = [];
 
-    public function CartifyUsers(){
+    public function User(){
         return $this->belongsTo(CartifyUsers::class, 'cartify_user_id');
     }
 
