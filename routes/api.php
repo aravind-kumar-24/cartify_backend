@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssetsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\SellerController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/register')->group(function(){
@@ -17,6 +18,10 @@ Route::prefix('/auth')->group(function(){
 
     Route::middleware('auth:api')->group(function(){
         Route::get('/get_auth_user', [AuthController::class, 'get_auth_user']);
+
+        Route::prefix('/seller')->group(function(){
+            Route::post('/update_seller_profile', [SellerController::class, 'update_seller_profile']);
+        });
     });
 });
 

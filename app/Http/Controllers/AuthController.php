@@ -125,7 +125,7 @@ class AuthController extends Controller
             }
 
             return Response::json([
-                'message' =>  $role .' fetched successfully',
+                'message' =>  $role .' details fetched successfully',
                 'user_data' => $user_data
             ], 200);
 
